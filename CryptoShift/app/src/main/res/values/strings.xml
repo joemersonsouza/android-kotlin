@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CryptoShift</string>
+    <string name="title_activity_crypto_view">Crypto Shift</string>
 </resources>

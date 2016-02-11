@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Splash">
+    tools:context=".views.Splash">
 
 
     <ImageView
-            android:src="@color/colorAccent"
+            android:contentDescription="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/splash"/>
+            android:id="@+id/splash"
+            android:background="@drawable/graph"/>
     <TextView
+            android:id="@+id/splash_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/app_name"

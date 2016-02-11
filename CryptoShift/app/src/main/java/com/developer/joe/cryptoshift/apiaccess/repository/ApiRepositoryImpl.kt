@@ -1,8 +1,8 @@
 package com.developer.joe.cryptoshift.apiaccess.repository
 
 import com.developer.joe.cryptoshift.apiaccess.HttpMethod
-import java.net.HttpURLConnection
 import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 /**
  * Implementation of available methods of ApiAdapter
@@ -18,16 +18,15 @@ class ApiRepositoryImpl : GetConnection {
      * @param method HttpMethod
      * @param url Url connect
      */
-    override fun get(method: HttpMethod, url: URL): HttpURLConnection? {
+    override fun get(method: HttpMethod, url: URL): HttpsURLConnection? {
 
-        val connection = url.openConnection() as HttpURLConnection
+        val connection : HttpsURLConnection = url.openConnection() as HttpsURLConnection
         connection.readTimeout = 15000
         connection.connectTimeout = 15000
         connection.requestMethod = method.toString()
         connection.doInput = true
         connection.doOutput = true
         connection.setRequestProperty("Connection", "Keep-Alive")
-        connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0")
         connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8")
         return connection
     }

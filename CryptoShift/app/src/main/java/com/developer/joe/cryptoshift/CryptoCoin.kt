@@ -10,4 +10,9 @@ import org.json.JSONObject
  * @property price The crypto coin price's
  * @author Joemerson Souza
  */
-class CryptoCoin (val symbol:String, val price:Long)
+class CryptoCoin (val symbol:String, val price:String) {
+
+    override fun toString(): String {
+        return "$symbol \t\t$ $price"
+    }
+}

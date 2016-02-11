@@ -5,12 +5,10 @@ package com.developer.joe.cryptoshift.apiaccess
  *
  * @author Joemerson Souza
  */
-enum class HttpMethod(name:String) {
+enum class HttpMethod(private val method: String) {
     HTTP_POST("POST"),
     HTTP_GET("GET"),
     HTTP_PUT("PUT");
 
-    override fun toString(): String {
-        return this.name
-    }
+    override fun toString(): String = method
 }

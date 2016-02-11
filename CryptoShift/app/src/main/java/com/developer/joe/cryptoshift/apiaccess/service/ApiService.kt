@@ -1,6 +1,6 @@
 package com.developer.joe.cryptoshift.apiaccess.service
 
-import com.developer.joe.cryptoshift.apiaccess.ApiAddress.BINNANCE
+import com.developer.joe.cryptoshift.apiaccess.ApiAddress.BINANCE
 import com.developer.joe.cryptoshift.apiaccess.Endpoint
 import com.developer.joe.cryptoshift.apiaccess.HttpMethod
 import com.developer.joe.cryptoshift.apiaccess.HttpMethod.HTTP_GET
@@ -12,6 +12,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 /**
  * Api service
@@ -31,16 +32,17 @@ class ApiService : GetMessage, SendMessage {
      */
     override fun get(endpoint: Endpoint, params: Map<String, String>?): JSONArray {
 
-        checkNotNull(params)
         checkNotNull(endpoint)
+
         val url = getUrl(endpoint, params)
         val apiConnection = connection.get(HTTP_GET, url)
+        apiConnection?.doOutput = false
 
-        if (apiConnection?.responseCode == HttpURLConnection.HTTP_OK) {
+        if (apiConnection?.responseCode == HttpsURLConnection.HTTP_OK) {
             return readResponseMessage(apiConnection)
         }
 
-        return JSONArray(JSONObject("Sorry, I tried to connect but was not so good"))
+        return JSONArray(JSONObject("{message: 'Sorry, I tried to connect but was not so good'}"))
     }
 
     /**
@@ -55,7 +57,7 @@ class ApiService : GetMessage, SendMessage {
         params: Map<String, String>?
     ): URL {
 
-        val apiFullAddress = "$BINNANCE.name$endpoint.name${getFormattedParams(params)}"
+        val apiFullAddress = "${BINANCE}${endpoint}${getFormattedParams(params)}"
         return URL(apiFullAddress)
     }
 

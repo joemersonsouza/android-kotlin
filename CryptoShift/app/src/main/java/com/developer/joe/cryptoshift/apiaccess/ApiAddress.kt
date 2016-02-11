@@ -5,9 +5,9 @@ package com.developer.joe.cryptoshift.apiaccess
  *
  * @author Joemerson Souza
  */
-enum class ApiAddress(address: String) {
+enum class ApiAddress(private val address: String) {
 
-    BINNANCE("https://api.binance.com/api/v3/");
+    BINANCE("https://api.binance.com/api/v3/");
 
-    override fun toString(): String = name
+    override fun toString(): String = address
 }

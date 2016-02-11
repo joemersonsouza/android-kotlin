@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper
 * @author Joemerson Souza
 **/
 class SqlLiteAccess(
-    context: Context?, name: String?="cryptocoins", factory: SQLiteDatabase.CursorFactory?=null, version: Int=0
+    context: Context?, name: String?="cryptocoins", factory: SQLiteDatabase.CursorFactory?=null, version: Int=1
 ) :  SQLiteOpenHelper(context, name, factory, version) {
 
     /**
@@ -32,14 +32,5 @@ class SqlLiteAccess(
     override fun onUpgrade(db: SQLiteDatabase?, fromVersion: Int, toVersion: Int) {
         db?.execSQL(DbAction.DROP_CRYPTO_TABLE.toString())
         db?.execSQL(DbAction.CREATE_CRYPTO_TABLE.toString())
-    }
-    
-    /**
-    * Initialize Database Constructor
-    *
-    **/
-    fun initializeDB() {
-        val db = writableDatabase
-        onUpgrade(db, 0, 0)
     }
 }
