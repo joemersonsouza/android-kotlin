@@ -4,25 +4,45 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.developer.joe.cryptoshift.APIAccess.adapter.ApiAdapterImpl
-import com.developer.joe.cryptoshift.DBAccess.DbConnection
-import org.json.JSONArray
+import com.developer.joe.cryptoshift.apiaccess.Endpoint
+import com.developer.joe.cryptoshift.apiaccess.service.ApiService
+import com.developer.joe.cryptoshift.apiaccess.service.GetMessage
+import com.developer.joe.cryptoshift.dbaccess.repository.SqlLiteAccess
+import com.developer.joe.cryptoshift.dbaccess.service.DbAccess
+import com.developer.joe.cryptoshift.dbaccess.service.InsertCryptoValues
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 
 class Splash : Activity() {
+
+    private val mapper = jacksonObjectMapper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         startAnimation()
         createDatabase()
-        val apiAdapter = ApiAdapterImpl()
-        JSONArray coinsPrices = ApiAdapter
-        //TODO: Recriate database
-        //TODO: Open the new table
+        initializeRepository()
+        //TODO: Open new activity
+    }
+
+    private fun initializeRepository() {
+        val cryptoCoins = getCryptCoins()
+
+        val insertCryptoValues: InsertCryptoValues = DbAccess(this)
+        for (cryptoCoin in cryptoCoins) {
+            insertCryptoValues.insert(cryptoCoin)
+        }
+    }
+
+    private fun getCryptCoins() : List<CryptoCoin> {
+        val getMessage: GetMessage = ApiService()
+        val jsonCryptoCoins = getMessage.get(Endpoint.PRICE, null)
+        return mapper.readValue(jsonCryptoCoins.toString())
     }
 
     private fun createDatabase() {
-        val dbConnection = DbConnection(this)
+        val dbConnection = SqlLiteAccess(this)
         dbConnection.initializeDB()
     }
 

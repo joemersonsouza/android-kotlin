@@ -1,4 +1,4 @@
-package com.developer.joe.cryptoshift.APIAccess
+package com.developer.joe.cryptoshift.apiaccess
 
 /**
  * HTTP method able to be used on project

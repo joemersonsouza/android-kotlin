@@ -1,6 +1,6 @@
-package com.developer.joe.cryptoshift.APIAccess.adapter
+package com.developer.joe.cryptoshift.apiaccess.repository
 
-import com.developer.joe.cryptoshift.APIAccess.HttpMethod
+import com.developer.joe.cryptoshift.apiaccess.HttpMethod
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -9,7 +9,7 @@ import java.net.URL
  *
  * @author Joemerson Souza
  */
-class ApiAdapterImpl : GetConnection {
+class ApiRepositoryImpl : GetConnection {
 
     /**
      * Method responsible to return a HttpUrlConnection based on
@@ -25,10 +25,10 @@ class ApiAdapterImpl : GetConnection {
         connection.connectTimeout = 15000
         connection.requestMethod = method.toString()
         connection.doInput = true
+        connection.doOutput = true
         connection.setRequestProperty("Connection", "Keep-Alive")
         connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0")
         connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8")
-        connection.doOutput = true
         return connection
     }
 }

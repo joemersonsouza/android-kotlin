@@ -1,4 +1,4 @@
-package com.developer.joe.cryptoshift.DBAccess
+package com.developer.joe.cryptoshift.dbaccess.repository
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 * 
 * @author Joemerson Souza
 **/
-class DbConnection(
+class SqlLiteAccess(
     context: Context?, name: String?="cryptocoins", factory: SQLiteDatabase.CursorFactory?=null, version: Int=0
 ) :  SQLiteOpenHelper(context, name, factory, version) {
 
@@ -19,7 +19,7 @@ class DbConnection(
     * @param db Instance of database
     **/
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(DbAction.CREATE_CRYPTO_TABLE)
+        db?.execSQL(DbAction.CREATE_CRYPTO_TABLE.toString())
     }
 
     /**
@@ -30,8 +30,8 @@ class DbConnection(
     * @param toVersion next version
     **/
     override fun onUpgrade(db: SQLiteDatabase?, fromVersion: Int, toVersion: Int) {
-        db?.execSQL(DbAction.DROP_CRYPTO_TABLE)
-        db?.execSQL(DbAction.CREATE_CRYPTO_TABLE)
+        db?.execSQL(DbAction.DROP_CRYPTO_TABLE.toString())
+        db?.execSQL(DbAction.CREATE_CRYPTO_TABLE.toString())
     }
     
     /**
@@ -39,7 +39,7 @@ class DbConnection(
     *
     **/
     fun initializeDB() {
-        val db = this.writableDatabase
+        val db = writableDatabase
         onUpgrade(db, 0, 0)
     }
 }

@@ -1,7 +1,7 @@
-package com.developer.joe.cryptoshift.APIAccess.service
+package com.developer.joe.cryptoshift.apiaccess.service
 
-import com.developer.joe.cryptoshift.APIAccess.Endpoint
-import com.developer.joe.cryptoshift.APIAccess.HttpMethod
+import com.developer.joe.cryptoshift.apiaccess.Endpoint
+import com.developer.joe.cryptoshift.apiaccess.HttpMethod
 import org.json.JSONObject
 
 /**

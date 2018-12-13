@@ -1,4 +1,4 @@
-package com.developer.joe.cryptoshift.Exception
+package com.developer.joe.cryptoshift.exception
 
 import java.lang.Exception
 

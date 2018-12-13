@@ -1,6 +1,6 @@
-package com.developer.joe.cryptoshift.APIAccess.adapter
+package com.developer.joe.cryptoshift.apiaccess.repository
 
-import com.developer.joe.cryptoshift.APIAccess.HttpMethod
+import com.developer.joe.cryptoshift.apiaccess.HttpMethod
 import java.net.HttpURLConnection
 import java.net.URL
 
