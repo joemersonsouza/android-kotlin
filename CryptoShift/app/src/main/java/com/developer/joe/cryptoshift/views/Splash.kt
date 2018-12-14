@@ -85,7 +85,7 @@ class Splash : Activity() {
 
         override fun onPreExecute() {
             onProgressUpdate("Hey, nice to see you...")
-            Thread.sleep(1000)
+            Thread.sleep(500)
         }
 
         override fun doInBackground(vararg p0: Void?): Boolean {
@@ -95,7 +95,7 @@ class Splash : Activity() {
                 return false
 
             publishProgress("Nice, I found some coins...")
-            Thread.sleep(1000)
+            Thread.sleep(500)
             initializeRepository(cryptoCoins)
 
             return true
@@ -121,8 +121,9 @@ class Splash : Activity() {
             builder.append("Charging.")
             deleteCryptoValues.deleteAll()
             for (cryptoCoin in cryptoCoins) {
-                builder.append("")
-                onProgressUpdate(builder.toString())
+                builder.append(".")
+                publishProgress(builder.toString())
+                Thread.sleep(20)
                 insertCryptoValues.insert(cryptoCoin)
             }
         }
