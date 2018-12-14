@@ -117,13 +117,9 @@ class Splash : Activity() {
         private fun initializeRepository(cryptoCoins : List<CryptoCoin>) {
             val insertCryptoValues: InsertCryptoValues = DbAccess(mContext)
             val deleteCryptoValues: DeleteCryptoValues = DbAccess(mContext)
-            val builder = StringBuilder()
-            builder.append("Charging.")
             deleteCryptoValues.deleteAll()
             for (cryptoCoin in cryptoCoins) {
-                builder.append(".")
-                publishProgress(builder.toString())
-                Thread.sleep(20)
+                publishProgress("Charging...")
                 insertCryptoValues.insert(cryptoCoin)
             }
         }
