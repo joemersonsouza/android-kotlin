@@ -4,12 +4,14 @@ import com.developer.joe.cryptoshift.apiaccess.ApiAddress.BINANCE
 import com.developer.joe.cryptoshift.apiaccess.Endpoint
 import com.developer.joe.cryptoshift.apiaccess.HttpMethod
 import com.developer.joe.cryptoshift.apiaccess.HttpMethod.HTTP_GET
+import com.developer.joe.cryptoshift.apiaccess.HttpMethod.HTTP_POST
 import com.developer.joe.cryptoshift.apiaccess.repository.ApiRepositoryImpl
 import com.developer.joe.cryptoshift.apiaccess.repository.GetConnection
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
@@ -42,7 +44,34 @@ class ApiService : GetMessage, SendMessage {
             return readResponseMessage(apiConnection)
         }
 
-        return JSONArray(JSONObject("{message: 'Sorry, I tried to connect but was not so good'}"))
+        return JSONArray(JSONObject("{message: 'Sorry, I tried to connect but it was not so good'}"))
+    }
+
+    /**
+     * Send a message to server
+     *
+     * @param endpoint Endpoint
+     * @param method HttpMethod
+     * @param params Mapper with key and value
+     * @return a JSONObject
+     */
+    override fun send(endpoint: Endpoint, method: HttpMethod, params: JSONObject) : JSONObject {
+
+        checkNotNull(endpoint)
+
+        val url = getUrl(endpoint, null)
+        val apiConnection = connection.get(HTTP_POST, url)
+
+        val outputStreamJson = OutputStreamWriter(apiConnection?.outputStream)
+        outputStreamJson.write(params.toString())
+        outputStreamJson.close()
+
+        if (apiConnection?.responseCode == HttpsURLConnection.HTTP_CREATED) {
+            return JSONObject("{message: 'Created'}")
+        }
+
+        return JSONObject("{message: 'Sorry, I tried to connect but it was not so good'}")
+
     }
 
     /**
@@ -57,7 +86,7 @@ class ApiService : GetMessage, SendMessage {
         params: Map<String, String>?
     ): URL {
 
-        val apiFullAddress = "${BINANCE}${endpoint}${getFormattedParams(params)}"
+        val apiFullAddress = "$BINANCE$endpoint${getFormattedParams(params)}"
         return URL(apiFullAddress)
     }
 
@@ -105,17 +134,5 @@ class ApiService : GetMessage, SendMessage {
         reader.close()
 
         return JSONArray(builder.toString())
-    }
-
-    /**
-     * Send a message to server
-     *
-     * @param endpoint Endpoint
-     * @param method HttpMethod
-     * @param params Mapper with key and value
-     * @return a JSONObject
-     */
-    override fun send(endpoint: Endpoint, method: HttpMethod, params: JSONObject) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -31,7 +31,7 @@ class Splash : Activity() {
     lateinit var splashInfo: TextView
 
     /**
-     *
+     * Default constructor
      *
      */
     override fun onCreate(savedInstanceState: Bundle?) {

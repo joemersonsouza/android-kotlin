@@ -18,5 +18,5 @@ interface SendMessage {
      * @param params Mapper with key and value
      * @return a JSONObject
      */
-    fun send(endpoint: Endpoint, method: HttpMethod, params: JSONObject)
+    fun send(endpoint: Endpoint, method: HttpMethod, params: JSONObject) : JSONObject
 }

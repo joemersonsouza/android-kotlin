@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:text="Currency compare"
         />
-        <EditText android:layout_width="match_parent"
+        <EditText android:id="@+id/search"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:hint="BTCUSDT"
                   android:drawableRight="@android:drawable/ic_menu_search"

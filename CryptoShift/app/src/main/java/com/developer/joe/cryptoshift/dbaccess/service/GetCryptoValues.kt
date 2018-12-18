@@ -9,9 +9,17 @@ import com.developer.joe.cryptoshift.CryptoCoin
  */
 interface GetCryptoValues {
     /**
-     * Insert a CryptoCoin into a repository
+     * Get a list of Crypto Coin into a repository
      *
      * @return cryptoCoin Crypto coin object
      */
     fun get() : ArrayList<CryptoCoin>
+
+    /**
+     * Get a list od Crypto Coin into a repository
+     * based on search value
+     *
+     * @return cryptoCoin Crypto coin object
+     */
+    fun get(search : String) : ArrayList<CryptoCoin>
 }
